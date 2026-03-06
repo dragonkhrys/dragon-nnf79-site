@@ -11,6 +11,13 @@
   box-sizing:border-box;
   margin:0;
   padding:0;
+  cursor:url("../assets/cursor.png") 4 4, auto;
+}
+
+a,
+button,
+.btn{
+  cursor:url("../assets/cursor.png") 4 4, pointer;
 }
 
 html, body{
@@ -20,11 +27,21 @@ html, body{
 body{
   font-family: Arial, Helvetica, sans-serif;
   color:var(--text);
-  background:
-    linear-gradient(rgba(0,0,0,.30), rgba(0,0,0,.45)),
-    url("../assets/background.png") center center / cover no-repeat fixed;
   overflow-x:hidden;
   position:relative;
+  background:#000;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    linear-gradient(rgba(0,0,0,.28), rgba(0,0,0,.42)),
+    url("../assets/background.png") center center / cover no-repeat fixed;
+  filter:blur(3px) brightness(0.95);
+  transform:scale(1.02);
 }
 
 /* overlay extra per rendere leggibile la card */
@@ -51,23 +68,27 @@ body{
 .container{
   width:100%;
   max-width:760px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .card{
-  width:100%;
-  padding:22px;
+  width:min(92vw, 560px);
+  padding:20px;
   border-radius:24px;
-  border:1px solid var(--border);
-  background:var(--card);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.18);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.02) 18%, rgba(8,8,8,.64) 100%);
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
   box-shadow:
-    0 20px 60px rgba(0,0,0,.55),
-    0 0 25px rgba(255,20,20,.10);
-  margin-left:85px;
-  margin-top:-400px;
-  transform:scale(0.75);
-  transform-origin:center;
+    0 24px 70px rgba(0,0,0,.68),
+    0 8px 22px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 0 rgba(255,255,255,.04),
+    0 0 28px rgba(255,20,20,.12);
+  transform:translate(15px, -220px);
 }
 
 .profileBox{
@@ -82,26 +103,22 @@ body{
   height:90px;
   border-radius:20px;
   object-fit:cover;
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.16);
   box-shadow:
-    0 10px 28px rgba(0,0,0,.45),
-    0 0 18px rgba(255,30,30,.18);
+    0 14px 30px rgba(0,0,0,.45),
+    0 0 18px rgba(255,30,30,.18),
+    inset 0 1px 0 rgba(255,255,255,.12);
   flex:0 0 auto;
 }
 
-.profileText h1{
-  font-size:32px;
-  margin:0;
-  letter-spacing:0.8px;
-  background:linear-gradient(180deg, #ff5a5a 0%, #ff1f1f 45%, #700000 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  color:transparent;
-  text-shadow:
-    0 0 6px rgba(255,60,60,.20),
-    0 0 16px rgba(255,20,20,.10),
-    0 2px 8px rgba(0,0,0,.55);
+.title-logo{
+  display:block;
+  width:min(100%, 320px);
+  height:auto;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 2px 8px rgba(0,0,0,.55))
+    drop-shadow(0 0 10px rgba(255,20,20,.14));
 }
 
 .profileText p{
@@ -120,7 +137,7 @@ body{
   font-size:15px;
   line-height:1.4;
   letter-spacing:0.4px;
-    transform:scale(1.00);
+  transform:scale(1.00);
   transform-origin:center;
 }
 
@@ -163,20 +180,28 @@ body{
   gap:14px;
   text-decoration:none;
   color:var(--text);
-  background:var(--btn);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.03) 45%, rgba(255,255,255,.02) 100%);
   border:1px solid rgba(255,80,80,.22);
   border-radius:18px;
   padding:16px 18px;
   transition:.22s ease;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(0,0,0,.18);
 }
 
 .btn:hover{
   transform:translateY(-2px);
-  background:var(--btnHover);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.05) 45%, rgba(255,255,255,.03) 100%);
   border-color:rgba(255,90,90,.55);
   box-shadow:
+    0 14px 28px rgba(0,0,0,.28),
     0 0 22px rgba(255,30,30,.14),
-    inset 0 0 14px rgba(255,255,255,.03);
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.20);
 }
 
 .left{
@@ -192,10 +217,14 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(0,0,0,.28);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.07) 0%, rgba(0,0,0,.22) 100%);
   border:1px solid rgba(255,255,255,.10);
   overflow:hidden;
   flex:0 0 auto;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.07);
 }
 
 .ic img{
@@ -227,8 +256,70 @@ body{
 footer{
   text-align:center;
   color:rgba(243,246,251,.55);
-  font-size:12px;
+  font-size:16px;
   padding-top:18px;
+}
+
+/* Pulsante musica stile icona social */
+.music-toggle{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:30;
+  width:58px;
+  height:58px;
+  padding:0;
+  border:none;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.2s ease;
+}
+
+.music-toggle:hover{
+  transform:translateY(-2px);
+}
+
+.music-shell{
+  width:58px;
+  height:58px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.07) 0%, rgba(0,0,0,.22) 100%);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:
+    0 6px 14px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.07),
+    0 0 12px rgba(255,30,30,.08);
+  overflow:hidden;
+  transition:.2s ease;
+}
+
+.music-toggle:hover .music-shell{
+  border-color:rgba(255,90,90,.45);
+  box-shadow:
+    0 10px 20px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 16px rgba(255,30,30,.14);
+}
+
+.music-shell img{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+  display:block;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
+}
+
+@media (max-width: 900px){
+  .card{
+    width:min(92vw, 520px);
+    transform:translate(0, -80px);
+  }
 }
 
 @media (max-width: 700px){
@@ -237,8 +328,9 @@ footer{
     text-align:center;
   }
 
-  .profileText h1{
-    font-size:28px;
+  .title-logo{
+    width:min(100%, 280px);
+    margin:0 auto;
   }
 
   .hub-title{
@@ -246,14 +338,31 @@ footer{
   }
 
   .card{
-    padding:22px;
-    margin-left:0;
-    margin-top:0;
-    transform:scale(1);
+    width:min(94vw, 520px);
+    padding:20px;
+    transform:none;
   }
 
   .logo{
     width:82px;
     height:82px;
+  }
+
+  .music-toggle{
+    right:16px;
+    bottom:16px;
+    width:52px;
+    height:52px;
+  }
+
+  .music-shell{
+    width:52px;
+    height:52px;
+    border-radius:14px;
+  }
+
+  .music-shell img{
+    width:30px;
+    height:30px;
   }
 }
