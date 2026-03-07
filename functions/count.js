@@ -1,6 +1,12 @@
 export async function onRequestGet(context) {
-  const key = "visits_total";
   const kv = context.env.VISIT_COUNTER;
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  const key = `visits_${year}-${month}-${day}`;
 
   let count = await kv.get(key);
   count = count ? parseInt(count, 10) : 0;
