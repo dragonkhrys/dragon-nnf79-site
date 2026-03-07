@@ -79,7 +79,7 @@ function updateHudDateTime() {
 function initHudCount() {
   const hudCount = document.getElementById("hud-count");
   if (hudCount) {
-    hudCount.textContent = "VISITATORI GIORNALIERI: --";
+    hudCount.textContent = "VISITE OGGI: --";
   }
 }
 
@@ -92,13 +92,13 @@ async function updateVisitorCount() {
     const data = await res.json();
 
     if (typeof data.count === "number") {
-      hudCount.textContent = `VISITATORI GIORNALIERI: ${data.count}`;
+      hudCount.textContent = `VISITE OGGI: ${data.count}`;
     } else {
-      hudCount.textContent = "VISITATORI GIORNALIERI: --";
+      hudCount.textContent = "VISITE OGGI: --";
     }
   } catch (err) {
     console.error("Errore count:", err);
-    hudCount.textContent = "VISITATORI GIORNALIERI: --";
+    hudCount.textContent = "VISITE OGGI: --";
   }
 }
 
