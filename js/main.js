@@ -17,6 +17,7 @@ document.addEventListener("keydown", function (e) {
 const music = document.getElementById("bg-music");
 const toggle = document.getElementById("music-toggle");
 const musicIcon = document.getElementById("music-icon");
+const flameTrail = document.getElementById("flame-trail");
 
 let playing = false;
 
@@ -105,6 +106,49 @@ async function updateVisitorCount() {
     hudCount.textContent = "VISITE OGGI: --";
   }
 }
+
+function createFlameParticle(x, y) {
+  if (!flameTrail) return;
+
+  const particle = document.createElement("div");
+  particle.classList.add("flame-particle");
+
+  const sizes = ["small", "medium", "large"];
+  const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+  particle.classList.add(randomSize);
+
+  const offsetX = (Math.random() - 0.5) * 12;
+  const offsetY = (Math.random() - 0.5) * 12;
+
+  const driftX = `${(Math.random() - 0.5) * 18}px`;
+  const driftY = `${-18 - Math.random() * 24}px`;
+
+  particle.style.left = `${x + offsetX}px`;
+  particle.style.top = `${y + offsetY}px`;
+  particle.style.setProperty("--drift-x", driftX);
+  particle.style.setProperty("--drift-y", driftY);
+
+  flameTrail.appendChild(particle);
+
+  setTimeout(() => {
+    particle.remove();
+  }, 700);
+}
+
+let lastTrailTime = 0;
+
+document.addEventListener("mousemove", function (e) {
+  const now = Date.now();
+
+  if (now - lastTrailTime < 20) return;
+  lastTrailTime = now;
+
+  createFlameParticle(e.clientX, e.clientY);
+
+  if (Math.random() > 0.45) {
+    createFlameParticle(e.clientX - 4, e.clientY + 2);
+  }
+});
 
 window.addEventListener("load", function () {
   tryAutoplay();
