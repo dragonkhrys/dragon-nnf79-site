@@ -27,6 +27,10 @@ function setMusicState(isPlaying) {
     musicIcon.src = isPlaying ? "assets/music-on.png" : "assets/music-off.png";
     musicIcon.alt = isPlaying ? "Musica accesa" : "Musica spenta";
   }
+
+  if (toggle) {
+    toggle.classList.toggle("is-on", isPlaying);
+  }
 }
 
 async function tryAutoplay() {
