@@ -55,6 +55,56 @@ body::before{
   z-index:0;
 }
 
+/* Scia micro fiamme */
+#flame-trail{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:40;
+  overflow:hidden;
+}
+
+.flame-particle{
+  position:fixed;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(255,220,120,.95) 0%, rgba(255,120,0,.8) 35%, rgba(255,40,0,.45) 65%, rgba(255,0,0,0) 100%);
+  filter:blur(0.5px);
+  mix-blend-mode:screen;
+  animation:flameFade 0.7s ease-out forwards;
+}
+
+.flame-particle.small{
+  width:6px;
+  height:6px;
+  opacity:.85;
+}
+
+.flame-particle.medium{
+  width:10px;
+  height:10px;
+  opacity:.9;
+}
+
+.flame-particle.large{
+  width:14px;
+  height:14px;
+  opacity:.75;
+}
+
+@keyframes flameFade{
+  0%{
+    transform:translate(0, 0) scale(1);
+    opacity:1;
+  }
+  100%{
+    transform:translate(var(--drift-x, 0px), var(--drift-y, -24px)) scale(0.2);
+    opacity:0;
+  }
+}
+
 /* HUD data / ora / count */
 .hud-info{
   position:fixed;
@@ -79,6 +129,10 @@ body::before{
     inset 0 1px 0 rgba(255,255,255,.08),
     inset 0 -1px 0 rgba(255,255,255,.02),
     0 0 16px rgba(255,30,30,.08);
+
+  opacity:0;
+  animation:hudReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay:0.22s;
 }
 
 .hud-info div{
@@ -109,6 +163,19 @@ body::before{
 
 #hud-count{
   font-size:17px;
+}
+
+@keyframes hudReveal{
+  0%{
+    opacity:0;
+    transform:translateY(-16px) scale(0.97);
+    filter:blur(5px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
 }
 
 .wrap{
@@ -145,6 +212,22 @@ body::before{
     inset 0 -1px 0 rgba(255,255,255,.04),
     0 0 28px rgba(255,20,20,.12);
   transform:translate(15px, -220px);
+  opacity:0;
+  animation:cardReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay:0.12s;
+}
+
+@keyframes cardReveal{
+  0%{
+    opacity:0;
+    transform:translate(15px, -190px) scale(0.965);
+    filter:blur(6px);
+  }
+  100%{
+    opacity:1;
+    transform:translate(15px, -220px) scale(1);
+    filter:blur(0);
+  }
 }
 
 .profileBox{
@@ -246,6 +329,9 @@ body::before{
     0 8px 18px rgba(0,0,0,.22),
     inset 0 1px 0 rgba(255,255,255,.08),
     inset 0 -1px 0 rgba(0,0,0,.18);
+
+  opacity:0;
+  animation:socialReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .btn:hover{
@@ -258,6 +344,43 @@ body::before{
     0 0 22px rgba(255,30,30,.14),
     inset 0 1px 0 rgba(255,255,255,.10),
     inset 0 -1px 0 rgba(0,0,0,.20);
+}
+
+.btn:hover .arrow{
+  transform:translateX(6px);
+  color:#fff5f5;
+  text-shadow:
+    0 0 8px rgba(255,60,60,.18),
+    0 0 14px rgba(255,30,30,.12);
+}
+
+.links .btn:nth-child(1){
+  animation-delay:0.32s;
+}
+
+.links .btn:nth-child(2){
+  animation-delay:0.42s;
+}
+
+.links .btn:nth-child(3){
+  animation-delay:0.52s;
+}
+
+.links .btn:nth-child(4){
+  animation-delay:0.62s;
+}
+
+@keyframes socialReveal{
+  0%{
+    opacity:0;
+    transform:translateY(16px) scale(0.97);
+    filter:blur(4px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
 }
 
 .left{
@@ -307,6 +430,10 @@ body::before{
 .arrow{
   font-size:20px;
   color:rgba(243,246,251,.85);
+  transition:
+    transform .22s ease,
+    color .22s ease,
+    text-shadow .22s ease;
 }
 
 footer{
@@ -331,10 +458,27 @@ footer{
   align-items:center;
   justify-content:center;
   transition:.2s ease;
+
+  opacity:0;
+  animation:audioReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay:0.35s;
 }
 
 .music-toggle:hover{
   transform:translateY(-2px);
+}
+
+@keyframes audioReveal{
+  0%{
+    opacity:0;
+    transform:translateY(18px) scale(0.92);
+    filter:blur(4px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
 }
 
 .music-shell{
@@ -411,6 +555,21 @@ footer{
   .card{
     width:min(92vw, 520px);
     transform:translate(0, -80px);
+    animation:cardRevealTablet 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay:0.12s;
+  }
+}
+
+@keyframes cardRevealTablet{
+  0%{
+    opacity:0;
+    transform:translate(0, -45px) scale(0.965);
+    filter:blur(6px);
+  }
+  100%{
+    opacity:1;
+    transform:translate(0, -80px) scale(1);
+    filter:blur(0);
   }
 }
 
@@ -421,6 +580,8 @@ footer{
     gap:6px;
     padding:10px 12px;
     border-radius:14px;
+    animation:hudRevealMobile 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay:0.22s;
   }
 
   #hud-date{
@@ -453,6 +614,8 @@ footer{
     width:min(94vw, 520px);
     padding:20px;
     transform:none;
+    animation:cardRevealMobile 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay:0.10s;
   }
 
   .logo{
@@ -476,5 +639,50 @@ footer{
   .music-shell img{
     width:30px;
     height:30px;
+  }
+}
+
+@keyframes hudRevealMobile{
+  0%{
+    opacity:0;
+    transform:translateY(-12px) scale(0.97);
+    filter:blur(4px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes cardRevealMobile{
+  0%{
+    opacity:0;
+    transform:translateY(26px) scale(0.975);
+    filter:blur(5px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #flame-trail{
+    display:none;
+  }
+
+  .card,
+  .hud-info,
+  .music-toggle,
+  .btn{
+    opacity:1;
+    animation:none !important;
+    filter:none !important;
+  }
+
+  .music-toggle.is-on .music-shell{
+    animation:none !important;
   }
 }
