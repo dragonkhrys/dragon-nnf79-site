@@ -83,9 +83,29 @@ function initHudCount() {
   }
 }
 
+async function updateVisitorCount() {
+  const hudCount = document.getElementById("hud-count");
+  if (!hudCount) return;
+
+  try {
+    const res = await fetch("/count", { cache: "no-store" });
+    const data = await res.json();
+
+    if (typeof data.count === "number") {
+      hudCount.textContent = `COUNT: ${data.count}`;
+    } else {
+      hudCount.textContent = "COUNT: --";
+    }
+  } catch (err) {
+    console.error("Errore count:", err);
+    hudCount.textContent = "COUNT: --";
+  }
+}
+
 window.addEventListener("load", function () {
   tryAutoplay();
   updateHudDateTime();
   initHudCount();
+  updateVisitorCount();
   setInterval(updateHudDateTime, 1000);
 });
